@@ -31,135 +31,134 @@ function loadContent(page) {
         `,
 
         shapefiles: `
-
-           
-            <div class="fixed-buttons">
-                <button class="text-button">Sur cette page:</button>
-                <button class="text-button" onclick="scrollToSection('stepByStep')">Étape par étape</button>
-                <button class="text-button" onclick="scrollToSection('sampleR')">Exemple de sortie</button>
-                <button class="text-button" onclick="scrollToSection('fullCode')">Code complet</button>
-            </div>
-        
-            <h5>Assemblage et gestion des données/Fichiers</h5>
-            <h3 style="color: #47B5FF;">Fichiers</h3>
-            <p><em>Cette section explique le flux de travail d'importation et de gestion des shapefiles avec Python.</em></p>
-
-
-            <div class="round-buttons">
-                <button class="rect-button" onclick="window.location.href='https://numalariamodeling.github.io/snt-code-library-french-version/#shapefiles';">Vue R FR</button>
-                <button class="rect-button" onclick="window.location.href='https://numalariamodeling.github.io/snt-python-english-version/#shapefiles';">Vue py EN</button>
-                <button class="rect-button" onclick="window.location.href='https://numalariamodeling.github.io/snt-code-library-english-version/#shapefiles';">Vue R En</button>
-                <button class="rect-button" onclick="window.location.href='https://numalariamodeling.github.io/snt-python-english-version/#shapefiles';">Vue St EN</button>
-                <button class="rect-button" onclick="window.location.href='https://numalariamodeling.github.io/snt-code-library-english-version/#shapefiles';">Vue St En</button>
-
-            </div>
-           
-            <h4 id="stepByStep">Étape par étape</h4>
-            <h5 style="color: #ADD8E6;">Étape 1 : Installer les bibliothèques nécessaires</h5>
             
-            <p>Avant de commencer, assurez-vous que vous avez installé les packages Python nécessaires.</p>
+            <div class="fixed-buttons" id="fixedButtons">
+                <button class="text-button">Sur cette page :</button>
+                <button class="text-button" data-section="etapeParEtape" onclick="defilerVersSection('etapeParEtape')">Étape par étape</button>
+                <button class="text-button" data-section="codeComplet" onclick="defilerVersSection('codeComplet')">Code complet</button>
+                <button class="text-button" data-section="exempleR" onclick="defilerVersSection('exempleR')">Résultats d'exemple</button>
+            </div>
+
+            <h5>A. Assemblage et gestion des données/Shapefiles</h5>
+            <h3 style="color: #47B5FF;">Shapefiles</h3>
+         
+            <p>Les unités administratives représentent différents niveaux de division géographique au sein d'un pays. Ces unités sont généralement organisées de manière hiérarchique :</p>
+        
+            <p>(i). Admin 1 : Fait référence à une division primaire, telle que les états ou les provinces</p>
+            <p>(ii). Admin 2 : Fait référence à une subdivision de l'Admin 1, comme les districts ou les comtés.</p>
+            <p>(iii). Admin 3 : Fait référence à des divisions plus petites, telles que les municipalités ou les quartiers.</p>
+            <p>  </p>
+            <h5><em>Superposition des shapefiles :</em></h5>   
+            <p>Cela vous permet de visualiser les relations entre ces différents niveaux administratifs, tels que la superposition des limites administratives des districts (Admin 2) avec celles des provinces (Admin 1). Ceci est utile pour l'analyse visuelle, les opérations spatiales, et la compréhension de la relation géographique entre différentes zones.</p>
+            <div class="round-buttons">
+                <button class="rect-button" onclick="window.location.href='https://example.com/button1';">Voir R EN</button>
+                <button class="rect-button" onclick="window.location.href='https://example.com/button2';">Voir R FR</button>
+                <button class="rect-button" onclick="window.location.href='https://example.com/button3';">Voir py EN</button>
+                <button class="rect-button" onclick="window.location.href='https://example.com/button2';">Voir py FR</button>
+                <button class="rect-button" onclick="window.location.href='https://example.com/button3';">Voir St EN</button>
+            </div>
+            
+            <h4 id="etapeParEtape">Guide étape par étape</h4>
+            <h5 style="color: #ADD8E6;">Étape 1 : Installer les packages requis</h5>
+            
+            <p>Pour travailler avec des shapefiles dans Stata, vous devez utiliser la commande spmap. Cela nécessite un package appelé spmap. Vous devez également installer shp2dta pour convertir les shapefiles en fichiers de données Stata.</p>
             <p>Cela peut être fait en utilisant le code suivant :</p>
-            <pre><code>
-# Installer les bibliothèques nécessaires
+            <pre><button class="copy-button" onclick="copierCode()">Copier le code</button> <!-- Bouton de copie placé ici --><code>
+// Installer les packages requis pour travailler avec des shapefiles
+ssc install shp2dta
+ssc install spmap
+            </code></pre>          
+            <h5 style="color: #ADD8E6;">Étape 2 : Charger les shapefiles (Admin 1 et Admin 2)</h5>
+            <p>Convertir les shapefiles (admin1.shp et admin2.shp) en fichiers .dta en utilisant shp2dta.</p>
+            <pre><button class="copy-button" onclick="copierCode()">Copier le code</button> <!-- Bouton de copie placé ici --><code>            
+// Convertir le shapefile Admin 1 en fichiers de données Stata
+shp2dta using "path/to/admin1.shp", database(admin1_data) coordinates(admin1_coords) genid(id1)
 
-pip install geopandas matplotlib pandas      
-            </code><button class="copy-button" onclick="copyCode()">Copier le code</button> <!-- Copy button positioned here --></pre>
-            <p>Ce code installe le package <code>geopandas</code> pour manipuler les données spatiales, <code>matplotlib</code> pour la visualisation de données, et <code>pandas</code> pour la manipulation de données.</p>
-            <h5 style="color: #ADD8E6;">Étape 2 : Charger les bibliothèques nécessaires</h5>
-            <p>Après avoir installé les bibliothèques, vous devez les charger dans votre environnement Python :</p>
-            <pre><button class="copy-button" onclick="copyCode()">Copier le code</button> <!-- Copy button positioned here --><code>
-# Charger les bibliothèques nécessaires
-import geopandas as gpd
-import pandas as pd
-import matplotlib.pyplot as plt
+// Convertir le shapefile Admin 2 en fichiers de données Stata
+shp2dta using "path/to/admin2.shp", database(admin2_data) coordinates(admin2_coords) genid(id2)
+
             </code></pre>
-            <p>Cette étape rend les fonctions de ces bibliothèques disponibles pour votre script.</p>
-            <h5 style="color: #ADD8E6;">Étape 3 : Importer les shapefiles</h5>
-            <p>Vous pouvez importer des shapefiles en utilisant la fonction <code>read_file</code> du package <code>geopandas</code>. Voici une fonction pour le faire :</p>
-            <pre><button class="copy-button" onclick="copyCode()">Copier le code</button> <!-- Copy button positioned here --><code>
-# Importer des shapefiles
-def import_shapefile(filepath):
-    shapefile = gpd.read_file(filepath)  # Lire le shapefile
-    return shapefile  # Retourner le shapefile chargé
+            <p> (i). shp2dta using "path/to/admin1.shp" : Convertit le shapefile en fichiers .dta.</p> 
+            <p> (ii). database(admin1_data) et coordinates(admin1_coords) : Spécifie les noms pour la base de données et les coordonnées de sortie.</p>
+            <p> (iii). genid(id1) : Génère un identifiant unique pour chaque entité.</p>
+            
+            <h5 style="color: #ADD8E6;">Étape 3 : Fusionner les coordonnées avec les attributs</h5>
+            <p>Pour travailler avec des données spatiales dans Stata, vous devez fusionner les coordonnées avec la base de données contenant les attributs.</p>
+            <pre><button class="copy-button" onclick="copierCode()">Copier le code</button> <!-- Bouton de copie placé ici --><code>
+// Fusionner les coordonnées avec les attributs pour Admin 1
+use admin1_data, clear
+merge 1:1 id1 using admin1_coords
+
+// Fusionner les coordonnées avec les attributs pour Admin 2
+use admin2_data, clear
+merge 1:1 id2 using admin2_coords
             </code></pre>
-            <p>Cette fonction prend un chemin de fichier en entrée, lit le shapefile et le retourne comme un objet spatial.</p>
-            <h5 style="color: #ADD8E6;">Étape 4 : Renommer et correspondre les noms</h5>
-            <p>Parfois, les colonnes de votre shapefile peuvent devoir être renommées pour plus de clarté ou pour correspondre à d'autres jeux de données. Vous pouvez le faire ainsi :</p>
-            <pre><button class="copy-button" onclick="copyCode()">Copier le code</button> <!-- Copy button positioned here --><code>
-# Renommer et correspondre les noms
-def rename_shapefile_columns(shapefile, new_names):
-    shapefile.columns = new_names  # Renommer les colonnes
-    return shapefile  # Retourner le shapefile renommé
-            </code><button class="copy-button" onclick="copyCode()">Copier le code</button> <!-- Copy button positioned here --></pre>
-            <p>Cette fonction prend un shapefile et une liste de nouveaux noms, renommant les colonnes en conséquence.</p>
+                
+            <h5 style="color: #ADD8E6;">Étape 4 : Tracer les superpositions Admin 1 et Admin 2</h5>
+            <p>Maintenant que les shapefiles ont été convertis et fusionnés, vous pouvez utiliser spmap pour les tracer.</p>
+            <pre><button class="copy-button" onclick="copierCode()">Copier le code</button> <!-- Bouton de copie placé ici --><code>
+// Charger les fichiers de données Admin 1 et Admin 2
+use admin1_data, clear
 
-            <h5 style="color: #ADD8E6;">Étape 5 : Lier les shapefiles aux échelles pertinentes</h5>
-            <p>Liez votre shapefile aux échelles ou métadonnées pertinentes en le fusionnant avec un autre DataFrame :</p>
-            <pre><button class="copy-button" onclick="copyCode()">Copier le code</button> <!-- Copy button positioned here --><code>
-# Lier les shapefiles aux échelles pertinentes
-def link_shapefiles_to_scales(shapefile, scales_df, link_col):
-    linked_shapefile = shapefile.merge(scales_df, on=link_col)  # Fusionner le shapefile avec les échelles
-    return linked_shapefile  # Retourner le shapefile lié
+// Tracer Admin 2 (rouge) en premier, puis superposer Admin 1 (bleu)
+spmap using admin2_coords, id(id2) color(red*0.4) || ///
+spmap using admin1_coords, id(id1) color(blue*1.2) ///
+title("Superposition des unités Admin 1 et Admin 2") subtitle("Admin 1 (bleu) et Admin 2 (rouge)") ///
+legend(off)
+
             </code></pre>
-            <p>Cette fonction effectue une fusion entre le shapefile et un DataFrame contenant les informations d'échelle basées sur une colonne de liaison spécifiée.</p>
+            <p>(i). spmap using admin2_coords : Trace Admin 2 avec le fichier de coordonnées spécifié.</p>
+            <p>(ii). id(id2) : Utilise l'ID unique pour connecter les attributs aux coordonnées.</p>
+            <p>(iii). color(red*0.4) : Spécifie une couleur rouge pour Admin 2 avec une épaisseur de ligne de 0,4.</p>
+            <p>(iv). || est utilisé pour superposer une deuxième carte (Admin 1).</p>
+            <p>(v). La deuxième commande spmap superpose Admin 1 avec une couleur bleue (color(blue*1.2)).</p>
+            <p>(vi). title() et subtitle() ajoutent un titre et un sous-titre au graphique.</p>
+            <p>(vii). legend(off) : Supprime la légende pour un graphique plus propre.</p>
 
-            <h5 style="color: #ADD8E6;">Étape 6 : Visualiser les shapefiles et créer des cartes de base</h5>
-            <p>Enfin, vous pouvez visualiser le shapefile en utilisant <code>matplotlib</code> et <code>geopandas</code>. Voici une fonction pour cela :</p>
-            <pre><button class="copy-button" onclick="copyCode()">Copier le code</button> <!-- Copy button positioned here --><code>
-# Visualiser les shapefiles et créer des cartes de base
-def visualize_shapefile(shapefile, variable):
-    shapefile.plot(column=variable, cmap='viridis', legend=True)
-    plt.title(f'Visualisation du shapefile : {variable}')
-    plt.show()
-            </code><button class="copy-button" onclick="copyCode()">Copier le code</button> <!-- Copy button positioned here --></pre>
-            <p>Cette fonction crée une simple visualisation cartographique en utilisant les données spatiales. Remplacez <code>variable</code> par le nom de la variable que vous souhaitez visualiser dans l'esthétique de remplissage.</p>
-
-            <h4 id="fullCode">Code complet</h4>
+            <h3 id="codeComplet">Code complet</h3>
           
             <pre id="codeBlock">
                 <code>
-# Installer les bibliothèques nécessaires
-pip install geopandas matplotlib pandas
+// Installer les packages requis pour travailler avec des shapefiles
+ssc install shp2dta
+ssc install spmap
 
-# Charger les bibliothèques nécessaires
-import geopandas as gpd
-import pandas as pd
-import matplotlib.pyplot as plt
+// Convertir le shapefile Admin 1 en fichiers de données Stata
+shp2dta using "path/to/admin1.shp", database(admin1_data) coordinates(admin1_coords) genid(id1)
 
-# Importer des shapefiles
-def import_shapefile(filepath):
-    shapefile = gpd.read_file(filepath)  # Lire le shapefile
-    return shapefile  # Retourner le shapefile chargé
+// Convertir le shapefile Admin 2 en fichiers de données Stata
+shp2dta using "path/to/admin2.shp", database(admin2_data) coordinates(admin2_coords) genid(id2)
 
-# Renommer et correspondre les noms
-def rename_shapefile_columns(shapefile, new_names):
-    shapefile.columns = new_names  # Renommer les colonnes
-    return shapefile  # Retourner le shapefile renommé
+// Fusionner les coordonnées avec les attributs pour Admin 1
+use admin1_data, clear
+merge 1:1 id1 using admin1_coords
 
-# Lier les shapefiles aux échelles pertinentes
-def link_shapefiles_to_scales(shapefile, scales_df, link_col):
-    linked_shapefile = shapefile.merge(scales_df, on=link_col)  # Fusionner le shapefile avec les échelles
-    return linked_shapefile  # Retourner le shapefile lié
+// Fusionner les coordonnées avec les attributs pour Admin 2
+use admin2_data, clear
+merge 1:1 id2 using admin2_coords
 
-# Visualiser les shapefiles et créer des cartes de base
-def visualize_shapefile(shapefile, variable):
-    shapefile.plot(column=variable, cmap='viridis', legend=True)
-    plt.title(f'Visualisation du shapefile : {variable}')
-    plt.show()
+// Charger les fichiers de données Admin 1 et Admin 2
+use admin1_data, clear
+
+// Tracer Admin 2 (rouge) en premier, puis superposer Admin 1 (bleu)
+spmap using admin2_coords, id(id2) color(red*0.4) || ///
+spmap using admin1_coords, id(id1) color(blue*1.2) ///
+title("Superposition des unités Admin 1 et Admin 2") subtitle("Admin 1 (bleu) et Admin 2 (rouge)") ///
+legend(off)
+
                 </code>
-                <button class="copy-button" onclick="copyCode()">Copier le code</button> <!-- Copy button positioned here -->
+                <button class="copy-button" onclick="copierCode()">Copier le code</button> <!-- Bouton de copie placé ici -->
             </pre>
 
-            <h4 id="sampleR">Exemple de sortie</h4>
-            <img src="https://raw.githubusercontent.com/numalariamodeling/snt-code-library-english-version/a204dc53be5209fc170acbfbb5db8900930a80fa/MAP_PYTHON.png" alt="Sample Results">;
-           
+            <h3 id="exempleR">Résultats d'exemple</h3>
+            <img src="https://raw.githubusercontent.com/numalariamodeling/snt-code-library-english-version/a204dc53be5209fc170acbfbb5db8900930a80fa/MAP_PYTHON.png" alt="Résultats d'exemple">;
+            
+
         `,
 
-              
-        
     };
 
-    document.getElementById('content').innerHTML = content[page];
+    document.getElementById('content').innerHTML = conten[page];
 }
 
 window.onload = function() {

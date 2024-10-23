@@ -5,7 +5,7 @@ function basculerMenu(enteteMenu) {
 
 function chargerContenu(page) {
     const contenu = {
-        apercu: `
+        overview: `
             <h3 class="sidebar-title">Version : 3 octobre 2024 </h3>
             <h3 class="sidebar-title">Auteurs : Mohamed Sillah Kanu, Sammy Oppong, Jaline Gerardin </h3>
             <h2>Aperçu</h2>
@@ -28,137 +28,138 @@ Au fur et à mesure que SNT se développe, une plus grande assurance qualité es
             <p>Toutes les étapes d'analyse de SNT jusqu'à, mais sans inclure, la modélisation mathématique; certaines analyses connexes.</p>
         `,
 
+
+
         shapefiles: `
             
-            <div class="fixed-buttons" id="fixedButtons">
-                <button class="text-button">Sur cette page :</button>
-                <button class="text-button" data-section="etapeParEtape" onclick="defilerVersSection('etapeParEtape')">Étape par étape</button>
-                <button class="text-button" data-section="codeComplet" onclick="defilerVersSection('codeComplet')">Code complet</button>
-                <button class="text-button" data-section="exempleR" onclick="defilerVersSection('exempleR')">Résultats d'exemple</button>
+            <div class="fixed-buttons id="fixedButtons">
+                <button class="text-button">On this page:</button>
+                <button class="text-button" data-section="stepByStep" onclick="scrollToSection('stepByStep')">Step-by-step</button>
+                <button class="text-button" data-section="fullCode" onclick="scrollToSection('fullCode')">Full code</button>
+                <button class="text-button" data-section="sampleR" onclick="scrollToSection('sampleR')">Sample results</button>
             </div>
 
-            <h5>A. Assemblage et gestion des données/Shapefiles</h5>
+            <h5>A. Data Assembly and Management/Shapefiles</h5>
             <h3 style="color: #47B5FF;">Shapefiles</h3>
          
-            <p>Les unités administratives représentent différents niveaux de division géographique au sein d'un pays. Ces unités sont généralement organisées de manière hiérarchique :</p>
+            <p>Administrative Units represent different levels of geographic division within a country. These units are typically organized hierarchically:</p>
         
-            <p>(i). Admin 1 : Fait référence à une division primaire, telle que les états ou les provinces</p>
-            <p>(ii). Admin 2 : Fait référence à une subdivision de l'Admin 1, comme les districts ou les comtés.</p>
-            <p>(iii). Admin 3 : Fait référence à des divisions plus petites, telles que les municipalités ou les quartiers.</p>
+            <p>(i).Admin 1: Refers to a primary division, such as states or provinces</p>
+            <p>(ii).Admin 2: Refers to a subdivision of Admin 1, such as districts or counties.</p>
+            <p>(iii).Admin 3: Refers to smaller divisions, such as municipalities or wards.</p>
             <p>  </p>
-            <h5><em>Superposition des shapefiles :</em></h5>   
-            <p>Cela vous permet de visualiser les relations entre ces différents niveaux administratifs, tels que la superposition des limites administratives des districts (Admin 2) avec celles des provinces (Admin 1). Ceci est utile pour l'analyse visuelle, les opérations spatiales, et la compréhension de la relation géographique entre différentes zones.</p>
+            <h5>Overlaying Shapefiles:</h5>   
+            <p>This allows you to visualize relationships between these different administrative layers, such as overlaying administrative boundaries of districts (Admin 2) with those of provinces (Admin 1). This is useful for visual analysis, spatial operations, and understanding how different areas relate geographically.</p>
             <div class="round-buttons">
-                <button class="rect-button" onclick="window.location.href='https://example.com/button1';">Voir R EN</button>
-                <button class="rect-button" onclick="window.location.href='https://example.com/button2';">Voir R FR</button>
-                <button class="rect-button" onclick="window.location.href='https://example.com/button3';">Voir py EN</button>
-                <button class="rect-button" onclick="window.location.href='https://example.com/button2';">Voir py FR</button>
-                <button class="rect-button" onclick="window.location.href='https://example.com/button3';">Voir St FR</button>
+                <button class="rect-button" onclick="window.location.href='https://example.com/button1';">View R EN</button>
+                <button class="rect-button" onclick="window.location.href='https://example.com/button2';">View R FR</button>
+                <button class="rect-button" onclick="window.location.href='https://example.com/button3';">View py EN</button>
+                <button class="rect-button" onclick="window.location.href='https://example.com/button2';">View py FR</button>
+                <button class="rect-button" onclick="window.location.href='https://example.com/button3';">View St FR</button>
             </div>
             
-            <h4 id="etapeParEtape">Guide étape par étape</h4>
-            <h5 style="color: #ADD8E6;">Étape 1 : Installer les packages requis</h5>
+            <h4 id="stepByStep">Step-by-step guide</h4>
+            <h5 style="color: #ADD8E6;">Step 1: Install Required Packages</h5>
             
-            <p>Pour travailler avec des shapefiles dans Stata, vous devez utiliser la commande spmap. Cela nécessite un package appelé spmap. Vous devez également installer shp2dta pour convertir les shapefiles en fichiers de données Stata.</p>
-            <p>Cela peut être fait en utilisant le code suivant :</p>
-            <pre><button class="copy-button" onclick="copierCode()">Copier le code</button> <!-- Bouton de copie placé ici --><code>
-// Installer les packages requis pour travailler avec des shapefiles
+            <p>To work with shapefiles in Stata, you need to use the spmap command. This requires a package called spmap. You also need to install shp2dta to convert shapefiles into Stata data files.</p>
+            <p>This can be done using the following code:</p>
+            <pre><button class="copy-button" onclick="copyCode()">Copy Code</button> <!-- Copy button positioned here --><code>
+// Install required packages for working with shapefiles
 ssc install shp2dta
 ssc install spmap
             </code></pre>          
-            <h5 style="color: #ADD8E6;">Étape 2 : Charger les shapefiles (Admin 1 et Admin 2)</h5>
-            <p>Convertir les shapefiles (admin1.shp et admin2.shp) en fichiers .dta en utilisant shp2dta.</p>
-            <pre><button class="copy-button" onclick="copierCode()">Copier le code</button> <!-- Bouton de copie placé ici --><code>            
-// Convertir le shapefile Admin 1 en fichiers de données Stata
+            <h5 style="color: #ADD8E6;">Step 2: Load Shapefiles (Admin 1 and Admin 2)</h5>
+            <p>Convert the shapefiles (admin1.shp and admin2.shp) to .dta files using shp2dta.</p>
+            <pre><button class="copy-button" onclick="copyCode()">Copy Code</button> <!-- Copy button positioned here --><code>            
+// Convert Admin 1 shapefile to Stata data files
 shp2dta using "path/to/admin1.shp", database(admin1_data) coordinates(admin1_coords) genid(id1)
 
-// Convertir le shapefile Admin 2 en fichiers de données Stata
+// Convert Admin 2 shapefile to Stata data files
 shp2dta using "path/to/admin2.shp", database(admin2_data) coordinates(admin2_coords) genid(id2)
 
             </code></pre>
-            <p> (i). shp2dta using "path/to/admin1.shp" : Convertit le shapefile en fichiers .dta.</p> 
-            <p> (ii). database(admin1_data) et coordinates(admin1_coords) : Spécifie les noms pour la base de données et les coordonnées de sortie.</p>
-            <p> (iii). genid(id1) : Génère un identifiant unique pour chaque entité.</p>
+            <p> (i). shp2dta using "path/to/admin1.shp": Converts the shapefile into .dta files.</p> 
+            <p> (ii). database(admin1_data) and coordinates(admin1_coords): Specify names for the output database and coordinates.</p>
+            <p> (iii). genid(id1): Generates a unique ID for each feature.</p>
             
-            <h5 style="color: #ADD8E6;">Étape 3 : Fusionner les coordonnées avec les attributs</h5>
-            <p>Pour travailler avec des données spatiales dans Stata, vous devez fusionner les coordonnées avec la base de données contenant les attributs.</p>
-            <pre><button class="copy-button" onclick="copierCode()">Copier le code</button> <!-- Bouton de copie placé ici --><code>
-// Fusionner les coordonnées avec les attributs pour Admin 1
+            <h5 style="color: #ADD8E6;">Step 3: Merge Coordinates with Attributes</h5>
+            <p>To work with spatial data in Stata, you need to merge the coordinate data with the database that contains attributes.</p>
+            <pre><button class="copy-button" onclick="copyCode()">Copy Code</button> <!-- Copy button positioned here --><code>
+// Merge coordinates with attributes for Admin 1
 use admin1_data, clear
 merge 1:1 id1 using admin1_coords
 
-// Fusionner les coordonnées avec les attributs pour Admin 2
+// Merge coordinates with attributes for Admin 2
 use admin2_data, clear
 merge 1:1 id2 using admin2_coords
             </code></pre>
                 
-            <h5 style="color: #ADD8E6;">Étape 4 : Tracer les superpositions Admin 1 et Admin 2</h5>
-            <p>Maintenant que les shapefiles ont été convertis et fusionnés, vous pouvez utiliser spmap pour les tracer.</p>
-            <pre><button class="copy-button" onclick="copierCode()">Copier le code</button> <!-- Bouton de copie placé ici --><code>
-// Charger les fichiers de données Admin 1 et Admin 2
+            <h5 style="color: #ADD8E6;">Step 4: Plot Admin 1 and Admin 2 Overlays</h5>
+            <p>Now that the shapefiles have been converted and merged, you can use spmap to plot them.</p>
+            <pre><button class="copy-button" onclick="copyCode()">Copy Code</button> <!-- Copy button positioned here --><code>
+// Load Admin 1 and Admin 2 data files
 use admin1_data, clear
 
-// Tracer Admin 2 (rouge) en premier, puis superposer Admin 1 (bleu)
+// Plot Admin 2 (red) first, and then overlay Admin 1 (blue)
 spmap using admin2_coords, id(id2) color(red*0.4) || ///
 spmap using admin1_coords, id(id1) color(blue*1.2) ///
-title("Superposition des unités Admin 1 et Admin 2") subtitle("Admin 1 (bleu) et Admin 2 (rouge)") ///
+title("Overlay of Admin 1 and Admin 2 Units") subtitle("Admin 1 (blue) and Admin 2 (red)") ///
 legend(off)
 
             </code></pre>
-            <p>(i). spmap using admin2_coords : Trace Admin 2 avec le fichier de coordonnées spécifié.</p>
-            <p>(ii). id(id2) : Utilise l'ID unique pour connecter les attributs aux coordonnées.</p>
-            <p>(iii). color(red*0.4) : Spécifie une couleur rouge pour Admin 2 avec une épaisseur de ligne de 0,4.</p>
-            <p>(iv). || est utilisé pour superposer une deuxième carte (Admin 1).</p>
-            <p>(v). La deuxième commande spmap superpose Admin 1 avec une couleur bleue (color(blue*1.2)).</p>
-            <p>(vi). title() et subtitle() ajoutent un titre et un sous-titre au graphique.</p>
-            <p>(vii). legend(off) : Supprime la légende pour un graphique plus propre.</p>
+            <p>(i). spmap using admin2_coords: Plots Admin 2 with the specified coordinate file.</p>
+            <p>(ii). id(id2): Uses the unique ID to connect the attributes with the coordinates.</p>
+            <p>(iii). color(red*0.4): Specifies a red color for Admin 2 with a line thickness of 0.4.</p>
+            <p>(iv). || is used to overlay a second map (Admin 1).</p>
+            <p>(v). The second spmap command overlays Admin 1 with a blue color (color(blue*1.2)).</p>
+            <p>(vi). title() and subtitle() add a title and subtitle to the plot.</p>
+            <p>(vii). legend(off): Removes the legend for a cleaner plot.</p>
 
-            <h3 id="codeComplet">Code complet</h3>
+            <h3 id="fullCode">Full code</h3>
           
             <pre id="codeBlock">
                 <code>
-// Installer les packages requis pour travailler avec des shapefiles
+// Install required packages for working with shapefiles
 ssc install shp2dta
 ssc install spmap
 
-// Convertir le shapefile Admin 1 en fichiers de données Stata
+// Convert Admin 1 shapefile to Stata data files
 shp2dta using "path/to/admin1.shp", database(admin1_data) coordinates(admin1_coords) genid(id1)
 
-// Convertir le shapefile Admin 2 en fichiers de données Stata
+// Convert Admin 2 shapefile to Stata data files
 shp2dta using "path/to/admin2.shp", database(admin2_data) coordinates(admin2_coords) genid(id2)
 
-// Fusionner les coordonnées avec les attributs pour Admin 1
+// Merge coordinates with attributes for Admin 1
 use admin1_data, clear
 merge 1:1 id1 using admin1_coords
 
-// Fusionner les coordonnées avec les attributs pour Admin 2
+// Merge coordinates with attributes for Admin 2
 use admin2_data, clear
 merge 1:1 id2 using admin2_coords
 
-// Charger les fichiers de données Admin 1 et Admin 2
+// Load Admin 1 and Admin 2 data files
 use admin1_data, clear
 
-// Tracer Admin 2 (rouge) en premier, puis superposer Admin 1 (bleu)
+// Plot Admin 2 (red) first, and then overlay Admin 1 (blue)
 spmap using admin2_coords, id(id2) color(red*0.4) || ///
 spmap using admin1_coords, id(id1) color(blue*1.2) ///
-title("Superposition des unités Admin 1 et Admin 2") subtitle("Admin 1 (bleu) et Admin 2 (rouge)") ///
+title("Overlay of Admin 1 and Admin 2 Units") subtitle("Admin 1 (blue) and Admin 2 (red)") ///
 legend(off)
 
                 </code>
-                <button class="copy-button" onclick="copierCode()">Copier le code</button> <!-- Bouton de copie placé ici -->
+                <button class="copy-button" onclick="copyCode()">Copy Code</button> <!-- Copy button positioned here -->
             </pre>
 
-            <h3 id="exempleR">Résultats d'exemple</h3>
-            <img src="https://raw.githubusercontent.com/numalariamodeling/snt-code-library-english-version/a204dc53be5209fc170acbfbb5db8900930a80fa/MAP_PYTHON.png" alt="Résultats d'exemple">;
+            <h3 id="sampleR">Sample results</h3>
+            <img src="https://raw.githubusercontent.com/numalariamodeling/snt-code-library-english-version/a204dc53be5209fc170acbfbb5db8900930a80fa/MAP_PYTHON.png" alt="Sample Results">;
             
 
         `,
 
     };
 
-    document.getElementById('content').innerHTML = contenu[page];
+    document.getElementById('content').innerHTML = content[page];
 }
-
 
 window.onload = function() {
     // Get the current URL
@@ -350,4 +351,3 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener('scroll', updateButtonState);
     updateButtonState(); // Initial call in case already scrolled
 });
-

@@ -159,3 +159,195 @@ legend(off)
     document.getElementById('content').innerHTML = contenu[page];
 }
 
+
+window.onload = function() {
+    // Get the current URL
+    const currentUrl = window.location.href;
+
+    // Example 1: Load 'overview' if URL contains '#Overview'
+    if (currentUrl.includes('#Overview')) {
+        loadContent('overview');
+    }
+
+    // Example 2: Load 'shapefiles' if URL contains '#Shapefiles'
+    if (currentUrl.includes('#shapefiles')) {
+        loadContent('shapefiles');
+    }
+
+    // Example 3: Load 'data-management' if URL contains '#DataManagement'
+    if (currentUrl.includes('#hf')) {
+        loadContent('hf');
+    }
+};
+
+
+
+// Function to scroll to the section when the button is clicked
+function scrollToSection(sectionId) {
+    // Scroll to the specific section smoothly
+    document.getElementById(sectionId).scrollIntoView({ behavior: 'auto' });
+    
+    // Remove the 'active' class from all buttons
+    document.querySelectorAll('.text-button').forEach(button => button.classList.remove('active'));
+    
+    // Add the 'active' class to the clicked button
+    document.querySelector(`[data-section="${sectionId}"]`).classList.add('active');
+}
+
+// Function to check which section is at the top and update the active button
+function handleScroll() {
+    const sections = ['stepByStep', 'sampleR', 'fullCode'];
+    let activeSection = null;
+
+    sections.forEach(sectionId => {
+        const section = document.getElementById(sectionId);
+        const rect = section.getBoundingClientRect();
+        
+        // Check if the section is exactly at the top of the viewport
+        if (rect.top <= 0 && rect.bottom >= 0) {
+            activeSection = sectionId;
+        }
+    });
+
+    // Remove the 'active' class from all buttons
+    document.querySelectorAll('.text-button').forEach(button => button.classList.remove('active'));
+
+    // Add the 'active' class to the button corresponding to the section at the top
+    if (activeSection) {
+        document.querySelector(`[data-section="${activeSection}"]`).classList.add('active');
+    }
+}
+
+// Attach the scroll event listener to update the active button based on scroll position
+window.addEventListener('scroll', handleScroll);
+
+
+function copyCode() {
+    const codeBlock = document.getElementById("codeBlock").innerText;
+    navigator.clipboard.writeText(codeBlock).then(() => {
+        alert("Code copied to clipboard!");
+    }).catch(err => {
+        console.error('Error copying text: ', err);
+    });
+}
+
+document.querySelector('.search-bar').addEventListener('input', function() {
+    const query = this.value.toLowerCase();
+    const menuItems = document.querySelectorAll('.menu-link, .menu-header');
+    
+    menuItems.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        if (text.includes(query)) {
+            item.style.display = 'block'; // Show matching items
+        } else {
+            item.style.display = 'none'; // Hide non-matching items
+        }
+    });
+});
+
+// Function to handle link selection
+function selectLink(selectedLink) {
+    // Remove 'selected' class from all links
+    var links = document.getElementsByClassName('menu-link');
+    for (var i = 0; i < links.length; i++) {
+        links[i].classList.remove('selected');
+    }
+    // Add 'selected' class to the clicked link
+    selectedLink.classList.add('selected');
+}
+
+function toggleMenu(menuHeader) {
+    var submenu = menuHeader.nextElementSibling; // Get the submenu
+    if (submenu.style.display === "none" || submenu.style.display === "") {
+        submenu.style.display = "block"; // Show the submenu
+        menuHeader.querySelector('.menu-indicator').textContent = 'v'; // Change indicator to 'v'
+    } else {
+        submenu.style.display = "none"; // Hide the submenu
+        menuHeader.querySelector('.menu-indicator').textContent = '>'; // Change indicator back to '>'
+    }
+}
+
+// Add styles for rectangular buttons
+const styles = `
+    .rect-buttons {
+        display: flex;
+        gap: 10px; /* Adds space between the buttons */
+        margin-top: 10px;
+    }
+
+    .rect-button {
+        width: 100px;  /* Set width to make the button rectangular */
+        height: 40px;  /* Set height for better visibility */
+        border-radius: 5px; /* Small radius for slightly rounded corners, or set to 0 for sharp edges */
+        border: none;
+        background-color: #47B5FF;
+        color: white;
+        font-size: 14px;
+        cursor: pointer;
+    }
+`;
+
+// Inject styles into the document head
+const styleSheet = document.createElement("style");
+styleSheet.type = "text/css";
+styleSheet.innerText = styles;
+document.head.appendChild(styleSheet);     
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    const button = document.querySelector('.fixed-buttons');
+
+    function changeButtonColorOnScroll() {
+        if (window.scrollY > 50) { // Change '100' to the scroll distance you want
+            button.classList.add('scrolled');
+        } else {
+            button.classList.remove('scrolled');
+        }
+    }
+
+    window.addEventListener('scroll', changeButtonColorOnScroll);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const button = document.querySelector('.text-button');
+    const headings = document.querySelectorAll('h3'); // All headings to track
+
+    function updateButtonState() {
+        // Get the current scroll position
+        const scrollPosition = window.scrollY + window.innerHeight / 2;
+
+        // Loop through all headings
+        headings.forEach((heading) => {
+            const headingTop = heading.offsetTop;
+
+            if (scrollPosition >= headingTop) {
+                button.classList.add('active');
+            } else {
+                button.classList.remove('active');
+            }
+        });
+    }
+
+    // Add scroll event listener
+    window.addEventListener('scroll', updateButtonState);
+    updateButtonState(); // Initial call in case already scrolled
+});
+

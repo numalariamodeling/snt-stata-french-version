@@ -27,7 +27,7 @@ Au fur et à mesure que SNT se développe, une plus grande assurance qualité es
             <h3>Périmètre</h3>
             <p>Toutes les étapes d'analyse de SNT jusqu'à, mais sans inclure, la modélisation mathématique; certaines analyses connexes.</p>
         `,
-
+#
         shapefiles: `
             
             <div class="fixed-buttons" id="fixedButtons">

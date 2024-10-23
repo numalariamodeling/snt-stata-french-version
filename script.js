@@ -1,10 +1,10 @@
-function basculerMenu(enteteMenu) {
-    const sousMenu = enteteMenu.nextElementSibling;
-    sousMenu.style.display = sousMenu.style.display === 'block' ? 'none' : 'block';
+function toggleMenu(menuHeader) {
+    const submenu = menuHeader.nextElementSibling;
+    submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
 }
 
-function chargerContenu(page) {
-    const contenu = {
+function loadContent(page) {
+    const content = {
         overview: `
             <h3 class="sidebar-title">Version : 3 octobre 2024 </h3>
             <h3 class="sidebar-title">Auteurs : Mohamed Sillah Kanu, Sammy Oppong, Jaline Gerardin </h3>

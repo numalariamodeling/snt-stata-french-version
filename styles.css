@@ -210,6 +210,11 @@ pre {
     z-index: 1000;                   /* Ensure buttons are on top */
 }
 
+
+.fixed-buttons .text-button.active {
+    color: #47B5FF;
+}
+
 /* Apply to all paragraphs before or after the <pre> block */
 pre + p,
 pre ~ p,

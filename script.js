@@ -56,11 +56,11 @@ function loadContent(page) {
             <h5><em>Superposition des shapefiles :</em></h5>   
             <p>Cela vous permet de visualiser les relations entre ces différents niveaux administratifs, tels que la superposition des limites administratives des districts (Admin 2) avec celles des provinces (Admin 1). Ceci est utile pour l'analyse visuelle, les opérations spatiales, et la compréhension de la relation géographique entre différentes zones.</p>
             <div class="round-buttons">
-                <button class="rect-button" onclick="window.location.href='https://example.com/button1';">Voir R EN</button>
-                <button class="rect-button" onclick="window.location.href='https://example.com/button2';">Voir R FR</button>
-                <button class="rect-button" onclick="window.location.href='https://example.com/button3';">Voir py EN</button>
-                <button class="rect-button" onclick="window.location.href='https://example.com/button2';">Voir py FR</button>
-                <button class="rect-button" onclick="window.location.href='https://example.com/button3';">Voir St FR</button>
+                <button class="rect-button" onclick="window.location.href='https://numalariamodeling.github.io/snt-code-library-english-version/#shapefiles';">Voir R EN</button>
+                <button class="rect-button" onclick="window.location.href='https://numalariamodeling.github.io/snt-code-library-french-version/#shapefiles';">Voir R FR</button>
+                <button class="rect-button" onclick="window.location.href='https://numalariamodeling.github.io/snt-python-english-version/#shapefiles';">Voir py EN</button>
+                <button class="rect-button" onclick="window.location.href='https://numalariamodeling.github.io/snt-python-french-version/#shapefiles';">Voir py FR</button>
+                <button class="rect-button" onclick="window.location.href='https://numalariamodeling.github.io/snt-stata-french-version/#shapefiles';">Voir St FR</button>
             </div>
             
             <h4 id="stepByStep">Guide étape par étape</h4>

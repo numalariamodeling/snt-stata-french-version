@@ -27,7 +27,7 @@ function loadContent(page) {
 
         `,
 
-#
+
         shapefiles: `
             
             <div class="fixed-buttons" id="fixedButtons">

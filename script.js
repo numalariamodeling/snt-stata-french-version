@@ -32,11 +32,13 @@ function loadContent(page) {
             
             <div class="fixed-buttons" id="fixedButtons">
                 
-                <button class="text-button">Sur cette page:</button>
-                <button class="text-button" data-section='stepByStep" onclick="scrollToSection('stepByStep')">Étape par étape</button>
-                <button class="text-button" data-section='sampleR" onclick="scrollToSection('sampleR')">Exemple de sortie</button>
-                <button class="text-button" data-section='fullCode" onclick="scrollToSection('fullCode')">Code complet</button>
+               <button class="text-button">Sur cette page:</button>
+               <button class="text-button" data-section='stepByStep" onclick="scrollToSection('stepByStep')">Étape par étape</button>
+               <button class="text-button" data-section='sampleR" onclick="scrollToSection('sampleR')">Exemple de sortie</button>
+               <button class="text-button" data-section='fullCode" onclick="scrollToSection('fullCode')">Code complet</button>
             </div>
+
+           
 
             <h5>A. Assemblage et gestion des données/Shapefiles</h5>
             <h3 style="color: #47B5FF;">Shapefiles</h3>

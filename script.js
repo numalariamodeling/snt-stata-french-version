@@ -31,11 +31,18 @@ function loadContent(page) {
         shapefiles: `
             
             <div class="fixed-buttons" id="fixedButtons">
-                <button class="text-button">Sur cette page :</button>
-                <button class="text-button" data-section="etapeParEtape" onclick="defilerVersSection('etapeParEtape')">Étape par étape</button>
-                <button class="text-button" data-section="codeComplet" onclick="defilerVersSection('codeComplet')">Code complet</button>
-                <button class="text-button" data-section="exempleR" onclick="defilerVersSection('exempleR')">Résultats d'exemple</button>
+                
+                <button class="text-button">Sur cette page:</button>
+                <button class="text-button" onclick="scrollToSection('stepByStep')">Étape par étape</button>
+                <button class="text-button" onclick="scrollToSection('sampleR')">Exemple de sortie</button>
+                <button class="text-button" onclick="scrollToSection('fullCode')">Code complet</button>
             </div>
+
+             
+                        <button class="text-button">Sur cette page:</button>
+                        <button class="text-button" onclick="scrollToSection('stepByStep')">Étape par étape</button>
+                        <button class="text-button" onclick="scrollToSection('sampleR')">Exemple de sortie</button>
+                        <button class="text-button" onclick="scrollToSection('fullCode')">Code complet</button>
 
             <h5>A. Assemblage et gestion des données/Shapefiles</h5>
             <h3 style="color: #47B5FF;">Shapefiles</h3>
@@ -56,7 +63,7 @@ function loadContent(page) {
                 <button class="rect-button" onclick="window.location.href='https://example.com/button3';">Voir St FR</button>
             </div>
             
-            <h4 id="etapeParEtape">Guide étape par étape</h4>
+            <h4 id="stepByStep">Guide étape par étape</h4>
             <h5 style="color: #ADD8E6;">Étape 1 : Installer les packages requis</h5>
             
             <p>Pour travailler avec des shapefiles dans Stata, vous devez utiliser la commande spmap. Cela nécessite un package appelé spmap. Vous devez également installer shp2dta pour convertir les shapefiles en fichiers de données Stata.</p>
@@ -113,7 +120,7 @@ legend(off)
             <p>(vi). title() et subtitle() ajoutent un titre et un sous-titre au graphique.</p>
             <p>(vii). legend(off) : Supprime la légende pour un graphique plus propre.</p>
 
-            <h3 id="codeComplet">Code complet</h3>
+            <h3 id="fullCode">Code complet</h3>
           
             <pre id="codeBlock">
                 <code>
@@ -148,7 +155,7 @@ legend(off)
                 <button class="copy-button" onclick="copierCode()">Copier le code</button> <!-- Bouton de copie placé ici -->
             </pre>
 
-            <h3 id="exempleR">Résultats d'exemple</h3>
+            <h3 id="sampleR">Résultats d'exemple</h3>
             <img src="https://raw.githubusercontent.com/numalariamodeling/snt-code-library-english-version/a204dc53be5209fc170acbfbb5db8900930a80fa/MAP_PYTHON.png" alt="Résultats d'exemple">;
             
 

@@ -60,92 +60,79 @@ Au fur et à mesure que SNT se développe, une plus grande assurance qualité es
             </div>
             
             <h4 id="stepByStep">Guide étape par étape</h4>
-            <h5 style="color: #ADD8E6;">Étape 1 : Installer les packages requis</h5>
+            <h5 style="color: #ADD8E6;">Étape 1 : </h5>
             
-            <p>Pour travailler avec des shapefiles dans Stata, vous devez utiliser la commande spmap. Cela nécessite un package appelé spmap. Vous devez également installer shp2dta pour convertir les shapefiles en fichiers de données Stata.</p>
-            <p>Cela peut être fait en utilisant le code suivant :</p>
+            <p></p>
+            <p></p>
             <pre><button class="copy-button" onclick="copierCode()">Copier le code</button> <!-- Bouton de copie placé ici --><code>
-// Installer les packages requis pour travailler avec des shapefiles
-ssc install shp2dta
-ssc install spmap
+
+
+
+
+
             </code></pre>          
             <h5 style="color: #ADD8E6;">Étape 2 : Charger les shapefiles (Admin 1 et Admin 2)</h5>
             <p>Convertir les shapefiles (admin1.shp et admin2.shp) en fichiers .dta en utilisant shp2dta.</p>
             <pre><button class="copy-button" onclick="copierCode()">Copier le code</button> <!-- Bouton de copie placé ici --><code>            
-// Convertir le shapefile Admin 1 en fichiers de données Stata
-shp2dta using "path/to/admin1.shp", database(admin1_data) coordinates(admin1_coords) genid(id1)
 
-// Convertir le shapefile Admin 2 en fichiers de données Stata
-shp2dta using "path/to/admin2.shp", database(admin2_data) coordinates(admin2_coords) genid(id2)
-
+            
+            
+            
+            
+            
+            
             </code></pre>
-            <p> (i). shp2dta using "path/to/admin1.shp" : Convertit le shapefile en fichiers .dta.</p> 
-            <p> (ii). database(admin1_data) et coordinates(admin1_coords) : Spécifie les noms pour la base de données et les coordonnées de sortie.</p>
-            <p> (iii). genid(id1) : Génère un identifiant unique pour chaque entité.</p>
+            <p> </p> 
+            <p> </p>
+            <p> </p>
             
             <h5 style="color: #ADD8E6;">Étape 3 : Fusionner les coordonnées avec les attributs</h5>
-            <p>Pour travailler avec des données spatiales dans Stata, vous devez fusionner les coordonnées avec la base de données contenant les attributs.</p>
+            <p> </p>
             <pre><button class="copy-button" onclick="copierCode()">Copier le code</button> <!-- Bouton de copie placé ici --><code>
-// Fusionner les coordonnées avec les attributs pour Admin 1
-use admin1_data, clear
-merge 1:1 id1 using admin1_coords
 
-// Fusionner les coordonnées avec les attributs pour Admin 2
-use admin2_data, clear
-merge 1:1 id2 using admin2_coords
+
+
+
+
             </code></pre>
                 
-            <h5 style="color: #ADD8E6;">Étape 4 : Tracer les superpositions Admin 1 et Admin 2</h5>
-            <p>Maintenant que les shapefiles ont été convertis et fusionnés, vous pouvez utiliser spmap pour les tracer.</p>
+            <h5 style="color: #ADD8E6;">Étape 4 : </h5>
+            <p>   </p>
             <pre><button class="copy-button" onclick="copierCode()">Copier le code</button> <!-- Bouton de copie placé ici --><code>
-// Charger les fichiers de données Admin 1 et Admin 2
-use admin1_data, clear
 
-// Tracer Admin 2 (rouge) en premier, puis superposer Admin 1 (bleu)
-spmap using admin2_coords, id(id2) color(red*0.4) || ///
-spmap using admin1_coords, id(id1) color(blue*1.2) ///
-title("Superposition des unités Admin 1 et Admin 2") subtitle("Admin 1 (bleu) et Admin 2 (rouge)") ///
-legend(off)
+
+
+
+
+
+
 
             </code></pre>
-            <p>(i). spmap using admin2_coords : Trace Admin 2 avec le fichier de coordonnées spécifié.</p>
-            <p>(ii). id(id2) : Utilise l'ID unique pour connecter les attributs aux coordonnées.</p>
-            <p>(iii). color(red*0.4) : Spécifie une couleur rouge pour Admin 2 avec une épaisseur de ligne de 0,4.</p>
-            <p>(iv). || est utilisé pour superposer une deuxième carte (Admin 1).</p>
-            <p>(v). La deuxième commande spmap superpose Admin 1 avec une couleur bleue (color(blue*1.2)).</p>
-            <p>(vi). title() et subtitle() ajoutent un titre et un sous-titre au graphique.</p>
-            <p>(vii). legend(off) : Supprime la légende pour un graphique plus propre.</p>
+            <p> </p>
+            <p> </p>
+            <p></p>
+            <p> </p>
+            <p> </p>
+            <p> </p>
+            <p> </p>
 
             <h3 id="fullCode">Code complet</h3>
           
             <pre id="codeBlock">
                 <code>
-// Installer les packages requis pour travailler avec des shapefiles
-ssc install shp2dta
-ssc install spmap
 
-// Convertir le shapefile Admin 1 en fichiers de données Stata
-shp2dta using "path/to/admin1.shp", database(admin1_data) coordinates(admin1_coords) genid(id1)
 
-// Convertir le shapefile Admin 2 en fichiers de données Stata
-shp2dta using "path/to/admin2.shp", database(admin2_data) coordinates(admin2_coords) genid(id2)
 
-// Fusionner les coordonnées avec les attributs pour Admin 1
-use admin1_data, clear
-merge 1:1 id1 using admin1_coords
 
-// Fusionner les coordonnées avec les attributs pour Admin 2
-use admin2_data, clear
-merge 1:1 id2 using admin2_coords
 
-// Charger les fichiers de données Admin 1 et Admin 2
-use admin1_data, clear
 
-// Tracer Admin 2 (rouge) en premier, puis superposer Admin 1 (bleu)
-spmap using admin2_coords, id(id2) color(red*0.4) || ///
-spmap using admin1_coords, id(id1) color(blue*1.2) ///
-title("Superposition des unités Admin 1 et Admin 2") subtitle("Admin 1 (bleu) et Admin 2 (rouge)") ///
-legend(off)
+
+
+
+
+
+
+
 
                 </code>
                 <button class="copy-button" onclick="copierCode()">Copier le code</button> <!-- Bouton de copie placé ici -->
